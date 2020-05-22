@@ -21,7 +21,7 @@ def check(content_block):
     return False
 
 
-def content_block_parse(conn, content_block, avito_coll, counter, proxy=False, print_data=True):
+def content_block_parse(conn, content_block, counter, proxy=False, print_data=True):
     content_block_link = content_block.find('a', class_='snippet-link')['href']
 
     if not proxy:
@@ -40,7 +40,7 @@ def content_block_parse(conn, content_block, avito_coll, counter, proxy=False, p
     try:
         raising_time_array = content_block_link_about \
             .find('div', class_='title-info-actions-item') \
-            .find('div')[1] \
+            .findAll('div')[0] \
             .text \
             .strip() \
             .split(' ')
@@ -56,7 +56,8 @@ def content_block_parse(conn, content_block, avito_coll, counter, proxy=False, p
 
         content_block_data['rising_time'] = raising_time_array[-1]
     except:
-        pass
+        with open('logs.log', 'a') as f:
+            f.write('\n' + str(content_block_link_about) + '\n')
 
     try:
         content_block_data['name'] = content_block_link_about \
@@ -86,9 +87,5 @@ def content_block_parse(conn, content_block, avito_coll, counter, proxy=False, p
 
     if print_data:
         print('good')
-        # pprint(content_block_data)
 
-    # avito_coll.insert_one(content_block_data)
-
-    # data.append(content_block_data)
     return content_block_data

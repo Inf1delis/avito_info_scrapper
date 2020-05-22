@@ -2,6 +2,7 @@ MONTH_NAMES = ['января', 'февраля', 'марта', 'апреля', '
                'ноября', 'декабря']
 
 COUNTER = 25
+LOCAL = False
 
 ADS_CLASSES = ['avito-ads-container',
                'avito-ads-container_context_1',
